@@ -1,0 +1,129 @@
+create table consortium (
+	id int auto_increment primary key,
+	name nvarchar(100) not null,
+	address nvarchar(100) not null,
+	telephon_number nvarchar(20) not null,
+	email nvarchar(50) not null,
+	website nvarchar(200)
+);
+
+create table account (
+	id int auto_increment primary key,
+	username nvarchar(30) not null,
+	secret nvarchar(30) not null,
+	permits int not null
+);
+
+create table ingredient(
+	id int auto_increment primary key,
+	name nvarchar(50) not null,
+	description nvarchar(200) not null
+);
+
+create table category (
+	id int auto_increment primary key,
+	name nvarchar(50) not null
+);
+
+create table warehouse(
+	id int auto_increment primary key,
+	address nvarchar(100) not null
+);
+
+create table certification(
+	id int auto_increment primary key,
+	acronym nvarchar(10) not null,
+	name nvarchar(100) not null
+);
+
+create table `order`(
+	id int auto_increment primary key,
+	id_account int not null,
+	id_consortium int not null,
+	date_order timestamp not null default (current_timestamp),
+	total_price decimal(10,2) not null
+);
+
+alter table `order`
+add constraint fk_order_account foreign key (id_account) references account (id);
+
+alter table `order`
+add constraint fk_order_consortium foreign key (id_consortium) references consortium(id);
+
+create table order_ingredient(
+	id_order int not null,
+	id_ingredient int not null,
+	weight decimal(5,2),
+	litres decimal(5,2)
+);
+
+alter table order_ingredient
+add constraint fk_order_ingredient_order foreign key (id_order) references `order`(id);
+
+alter table order_ingredient
+add constraint fk_order_ingredient_ingredient foreign key (id_ingredient) references ingredient(id);
+
+create table formaggyo(
+	id int auto_increment primary key,
+	name nvarchar(50) not null,
+	description nvarchar(200) not null,
+	price_kg decimal(5,2) not null,
+	id_category int not null ,
+	id_certification int not null,
+	color nvarchar(20),
+	smell nvarchar(50),
+	taste nvarchar(100),
+	expiry_date timestamp not null,
+	kcal int not null,
+	fats decimal(4,2) not null,
+	satured_fats decimal(4,2),
+	carbohydrates decimal(4,2) not null,
+	sugars decimal(4,2),
+	proteins decimal(4,2) not null,
+	fibers decimal(4,2),
+	salts decimal(4,2)
+);
+
+alter table formaggyo
+add constraint fk_formaggyo_category foreign key (id_category) references category(id);
+
+alter table formaggyo
+add constraint fk_formaggyo_certification foreign key (id_certification) references certification(id);
+
+create table formaggyo_ingredient(
+	id_formaggyo int not null,
+	id_ingredient int not null
+);
+
+alter table formaggyo_ingredient
+add constraint fk_formaggyo_ingredient_formaggyo foreign key (id_formaggyo) references formaggyo(id);
+
+alter table formaggyo_ingredient
+add constraint fk_formaggyo_ingredient_ingredient foreign key (id_ingredient) references ingredient(id);
+
+create table ingredient_warehouse (
+	id_ingredient int not null,
+	id_warehouse int not null,
+	weight decimal(5,2),
+	litres decimal(5,2)
+);
+
+alter table ingredient_warehouse
+add constraint fk_ingredient_warehouose_ingredient foreign key (id_ingredient) references ingredient(id);
+
+alter table ingredient_warehouse
+add constraint fk_ingredient_warehouose_warehouse foreign key (id_warehouse) references warehouse(id);
+
+create table formaggyo_warehouse(
+	id_formaggyo int not null,
+	id_warehouse int not null,
+	weight decimal(10,2) not null
+);
+
+alter table formaggyo_warehouse
+add constraint fk_formaggyo_warehouse_formaggyo foreign key (id_formaggyo) references formaggyo(id);
+
+alter table formaggyo_warehouse
+add constraint fk_formaggyo_warehouse_warehouse foreign key (id_warehouse) references warehouse(id);
+
+
