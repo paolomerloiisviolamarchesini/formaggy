@@ -1,4 +1,4 @@
-create table consortium (
+create table dairy (
 	id int auto_increment primary key,
 	name nvarchar(100) not null,
 	address nvarchar(100) not null,
@@ -36,32 +36,19 @@ create table certification(
 	name nvarchar(100) not null
 );
 
-create table `order`(
+create table supply(
 	id int auto_increment primary key,
 	id_account int not null,
-	id_consortium int not null,
-	date_order timestamp not null default (current_timestamp),
+	id_dairy int not null,
+	date_supply timestamp not null default (current_timestamp),
 	total_price decimal(10,2) not null
 );
 
-alter table `order`
-add constraint fk_order_account foreign key (id_account) references account (id);
+alter table supply
+add constraint fk_supply_account foreign key (id_account) references account (id);
 
-alter table `order`
-add constraint fk_order_consortium foreign key (id_consortium) references consortium(id);
-
-create table order_ingredient(
-	id_order int not null,
-	id_ingredient int not null,
-	weight decimal(5,2),
-	litres decimal(5,2)
-);
-
-alter table order_ingredient
-add constraint fk_order_ingredient_order foreign key (id_order) references `order`(id);
-
-alter table order_ingredient
-add constraint fk_order_ingredient_ingredient foreign key (id_ingredient) references ingredient(id);
+alter table supply
+add constraint fk_supply_dairy foreign key (id_dairy) references dairy(id);
 
 create table formaggyo(
 	id int auto_increment primary key,
@@ -90,6 +77,19 @@ add constraint fk_formaggyo_category foreign key (id_category) references catego
 alter table formaggyo
 add constraint fk_formaggyo_certification foreign key (id_certification) references certification(id);
 
+create table supply_formaggyo(
+	id_supply int not null,
+	id_formaggyo int not null,
+	weight decimal(5,2)
+);
+
+alter table supply_formaggyo
+add constraint fk_supply_formaggyo_supply foreign key (id_supply) references supply (id);
+
+alter table supply_formaggyo
+add constraint fk_supply_formaggyo_formaggyo foreign key (id_formaggyo) references formaggyo(id);
+
+
 create table formaggyo_ingredient(
 	id_formaggyo int not null,
 	id_ingredient int not null
@@ -100,19 +100,6 @@ add constraint fk_formaggyo_ingredient_formaggyo foreign key (id_formaggyo) refe
 
 alter table formaggyo_ingredient
 add constraint fk_formaggyo_ingredient_ingredient foreign key (id_ingredient) references ingredient(id);
-
-create table ingredient_warehouse (
-	id_ingredient int not null,
-	id_warehouse int not null,
-	weight decimal(5,2),
-	litres decimal(5,2)
-);
-
-alter table ingredient_warehouse
-add constraint fk_ingredient_warehouose_ingredient foreign key (id_ingredient) references ingredient(id);
-
-alter table ingredient_warehouse
-add constraint fk_ingredient_warehouose_warehouse foreign key (id_warehouse) references warehouse(id);
 
 create table formaggyo_warehouse(
 	id_formaggyo int not null,
@@ -125,5 +112,27 @@ add constraint fk_formaggyo_warehouse_formaggyo foreign key (id_formaggyo) refer
 
 alter table formaggyo_warehouse
 add constraint fk_formaggyo_warehouse_warehouse foreign key (id_warehouse) references warehouse(id);
+
+create table `order`(
+	id int auto_increment primary key,
+	id_account int not null,
+	date_order timestamp not null default (current_timestamp),
+	total_price decimal(10,2) not null
+);
+
+alter table `order`
+add constraint fk_order_account foreign key (id_account) references account (id);
+
+create table order_formaggyo(
+	id_order int not null,
+	id_formaggyo int not null,
+	weight decimal(5,2)
+);
+
+alter table order_formaggyo
+add constraint fk_order_formaggyo_order foreign key (id_order) references `order` (id);
+
+alter table order_formaggyo
+add constraint fk_order_formaggyo_formaggyo foreign key (id_formaggyo) references formaggyo(id);
 
 
