@@ -126,6 +126,12 @@ create table `order`(
 alter table `order`
 add constraint fk_order_account foreign key (id_account) references account (id);
 
+alter table `order`
+add address varchar(200) not null;
+
+alter table `order`
+add status int not null;
+
 create table order_formaggyo(
 	id_order int not null,
 	id_formaggyo int not null,
