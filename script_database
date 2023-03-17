@@ -46,7 +46,8 @@ create table supply(
 	id_account int not null,
 	id_dairy int not null,
 	date_supply timestamp not null default (current_timestamp),
-	total_price decimal(10,2) not null
+	total_price decimal(10,2) not null,
+	status int not null
 );
 
 alter table supply
