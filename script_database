@@ -14,6 +14,9 @@ create table account (
 	permits int not null
 );
 
+alter table account
+add email nvarchar(80) not null;
+
 create table ingredient(
 	id int auto_increment primary key,
 	name nvarchar(50) not null,
