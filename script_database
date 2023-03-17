@@ -1,42 +1,44 @@
+create database formaggy;
+
+use formaggy;
+
 create table dairy (
 	id int auto_increment primary key,
-	name nvarchar(100) not null,
-	address nvarchar(100) not null,
-	telephon_number nvarchar(20) not null,
-	email nvarchar(50) not null,
-	website nvarchar(200)
+	name varchar(100) not null,
+	address varchar(100) not null,
+	telephon_number varchar(20) not null,
+	email varchar(50) not null,
+	website varchar(200)
 );
 
 create table account (
 	id int auto_increment primary key,
-	username nvarchar(30) not null,
-	secret nvarchar(30) not null,
+	email varchar(80) not null,
+	username varchar(30) not null,
+	secret varchar(30) not null,
 	permits int not null
 );
 
-alter table account
-add email nvarchar(80) not null;
-
 create table ingredient(
 	id int auto_increment primary key,
-	name nvarchar(50) not null,
-	description nvarchar(200) not null
+	name varchar(50) not null,
+	description varchar(200) not null
 );
 
 create table category (
 	id int auto_increment primary key,
-	name nvarchar(50) not null
+	name varchar(50) not null
 );
 
 create table warehouse(
 	id int auto_increment primary key,
-	address nvarchar(100) not null
+	address varchar(100) not null
 );
 
 create table certification(
 	id int auto_increment primary key,
-	acronym nvarchar(10) not null,
-	name nvarchar(100) not null
+	acronym varchar(10) not null,
+	name varchar(100) not null
 );
 
 create table supply(
@@ -55,14 +57,14 @@ add constraint fk_supply_dairy foreign key (id_dairy) references dairy(id);
 
 create table formaggyo(
 	id int auto_increment primary key,
-	name nvarchar(50) not null,
-	description nvarchar(200) not null,
+	name varchar(50) not null,
+	description varchar(200) not null,
 	price_kg decimal(5,2) not null,
 	id_category int not null ,
 	id_certification int not null,
-	color nvarchar(20),
-	smell nvarchar(50),
-	taste nvarchar(100),
+	color varchar(20),
+	smell varchar(50),
+	taste varchar(100),
 	expiry_date timestamp not null,
 	kcal int not null,
 	fats decimal(4,2) not null,
@@ -80,10 +82,27 @@ add constraint fk_formaggyo_category foreign key (id_category) references catego
 alter table formaggyo
 add constraint fk_formaggyo_certification foreign key (id_certification) references certification(id);
 
+create table `size`(
+	id int auto_increment primary key,
+	weight decimal(5,2) not null
+);
+
+create table formaggyo_size(
+	id_formaggyo int not null,
+	id_size int not null
+);
+
+alter table formaggyo_size
+add constraint fk_formaggyo_size_formaggyo foreign key (id_formaggyo) references formaggyo (id);
+
+alter table formaggyo_size
+add constraint fk_formaggyo_size_size foreign key (id_size) references `size`(id);
+
+
 create table supply_formaggyo(
 	id_supply int not null,
 	id_formaggyo int not null,
-	weight decimal(5,2)
+	weight decimal(5,2) not null
 );
 
 alter table supply_formaggyo
@@ -119,23 +138,19 @@ add constraint fk_formaggyo_warehouse_warehouse foreign key (id_warehouse) refer
 create table `order`(
 	id int auto_increment primary key,
 	id_account int not null,
+	address varchar(200) not null,
 	date_order timestamp not null default (current_timestamp),
-	total_price decimal(10,2) not null
+	total_price decimal(10,2) not null,
+	status int not null
 );
 
 alter table `order`
 add constraint fk_order_account foreign key (id_account) references account (id);
 
-alter table `order`
-add address varchar(200) not null;
-
-alter table `order`
-add status int not null;
-
 create table order_formaggyo(
 	id_order int not null,
 	id_formaggyo int not null,
-	weight decimal(5,2)
+	weight decimal(5,2) not null
 );
 
 alter table order_formaggyo
@@ -143,5 +158,3 @@ add constraint fk_order_formaggyo_order foreign key (id_order) references `order
 
 alter table order_formaggyo
 add constraint fk_order_formaggyo_formaggyo foreign key (id_formaggyo) references formaggyo(id);
-
-
