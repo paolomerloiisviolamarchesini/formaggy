@@ -1,0 +1,208 @@
+
+alter table order_formaggyo
+add constraint fk_order_formaggyo_formaggyo foreign key (id_formaggyo) references formaggyo(id);
+insert into formaggy.certification(acronym,name)
+values 
+('DOP','Denominazione di origine protetta'),
+('IGP','Indicazione Geografica Protetta'),
+('STG','Specialità Tradizionale Garantita'),
+('Bio', 'Biologico'),
+('ISO','International Organization for Standardization')
+;
+
+insert into formaggy.category(name)
+values 
+('Freschi'),
+('Molli'),
+('Semiduri'),
+('Duri'),
+('Blu'),
+('Grana'),
+('Freschi di latte vaccino '),
+('Freschi di latte di capra')
+;
+
+insert into formaggy.warehouse (address)
+values
+('Via Dante Alighieri'),
+('Corso Umberto I'),
+('Piazza del Duomo'),
+('Via XX Settembre'),
+('Viale Europa'),
+('Corso Vittorio Emanuele II'),
+('Via Roma'),
+('Piazza San Marco'),
+('Via della Spiga'),
+('Lungarno Corsini');
+
+insert into formaggy.ingredient(name, description)
+values
+('Latte',' fresco e molto buono'),
+('Caglio','molto pregiato'),
+('Batteri lattici','non fanno male '),
+('Sale',' di origine marina'),
+('Cultura di muffe','serve per dargli un gusto in più'),
+('Acido citrico o acido lattico','non so cosa scrivere '),
+('Cloruro di calcio','non di origine chimica '),
+('Coloranti','usati per dargli un colore più vivace'),
+('Conservanti','di alta qualità');
+
+insert into formaggy.`size`(weight)
+values 
+(0.25),
+(0.5),
+(0.75),
+(1),
+(1.5),
+(2),
+(2.5),
+(3)
+;
+
+insert into formaggy.account (email,username,secret,permits)
+values 
+('formenton.matteo@iisviolamarchesini.edu.it','formenton matteo', '1234',1),
+('zanella.andrea@iisviolamarchesini.edu.it','zanella andrea', '1234',1),
+('temporin.simone@iisviolamarchesini.edu.it','temporin simone', '1234',1),
+('dressadore.claudio@iisviolamarchesini.edu.it','dressadore claudio', '1234',2)
+;
+
+insert into formaggy.dairy (name, address, telephon_number,email,website) 
+values 
+('La Bottega del Formaggio','Via Garibaldi','02 12345678','laBottegadelFormaggio@gmail.com','laBottegadelFormaggio.com'),
+('La Cascina dei Sapori','Piazza Navona','06 23456789','CascinadeiSapori@gmail.com','CascinadeiSapori.com'),
+('Il Caseificio delle Alpi','Via dei Condotti','055 34567890','CaseificiodelleAlpi@gmail.com','ArtedelFormaggio.com'),
+('Arte del Formaggio','Corso Italia','081 45678901','ArtedelFormaggio@gmail.com','ArtedelFormaggio.com'),
+('La Fattoria delle Gustose Delizie','Piazza del Popolo','011 56789012','FattoriadelleGustoseDelizie@gmail.com','FattoriadelleGustoseDelizie.com'),
+('La Latteria del Buongustaio','Via Veneto','051 67890123','LatteriadelBuongustaio@gmail.com','LatteriadelBuongustaio.com'),
+('Il Caseificio del Borgo','Corso Buenos Aires','02 78901234','CaseificiodelBorgo@gmail.com','CaseificiodelBorgo.com'),
+('La Bottega dei Formaggi Preziosi','Via dei Tornabuoni','06 89012345','BottegadeiFormaggiPreziosi@gmail.com','BottegadeiFormaggiPreziosi.com'),
+('Il Caseificio del Montefeltro','Piazza Bra','055 90123456','CaseificiodelMontefeltro@gmail.com','CaseificiodelMontefeltro.com'),
+('La Fattoria della Tradizione','Via Dante','081 01234567','FattoriadellaTradizione@gmail.com','FattoriadellaTradizione.com');
+
+insert into formaggy.supply (id_account,id_dairy,total_price,status)
+values
+(1,10,115.50,1),
+(2,9,1450.23,1),
+(3,8,2000.00,1),
+(1,7,1000.00,1),
+(2,6,1750.60,1),
+(3,5,3000.00,1),
+(1,4,4500.00,1),
+(2,3,1489.00,1),
+(3,2,1731.00,1),
+(1,1,1639.00,1);
+
+insert into formaggy.formaggyo (name,description,price_kg,id_category,id_certification,color,smell,taste,kcal,fats,satured_fats,carbohydrates,sugars,proteins,fibers,salts)
+values
+('Parmiggiano Reggiano','Un formaggio italiano realizzato con latte vaccinostagionato per un minimo di 12 mesi',6.10,4,1,'giallo intenso','odore di latte','gusto deciso',402,29.7,19.6,0,0,32.4,0,1.6),
+('Mozzarella','Un formaggio italiano realizzato con latte di bufala o di mucca,',16,1,2,'bianco','odore di latte fresco di qualità','gusto intenso di latte',265,21.10,13.20,0.90,0.90,18.30,0,0.4),
+('Cheddar','Un formaggio inglese realizzato con latte di mucca,',3.00,2,2,'arancione','odore di latte di mucca ','gusto forte e piccante',402,32.0,21.0,0.4,0.4,27.0,0,1.5),
+('Gorgonzola','Un formaggio italiano realizzato con latte vaccino, stagionato con muffe blu-verdi',5.75,5,3,'bianco e blu','odore pungente','gusto forte e distintivo',314,27.0,19.0,0,0,18,0,1.6),
+('Roquefort','Un formaggio francese realizzato con latte di pecora,stagionato con muffe blu-verdi',55,2,3,'blu e verde','odore di latte pungente','gusto forte e salato',369,30.64,19.2,2,0,21.54,0,3.5),
+('Brie',' Un formaggio francese realizzato con latte di mucca',14.95,2,5,'gallastro','odore leggero di latte','gusto leggermente dolce',334,27.68,17.41,0.45,0.45,20.75,0,1.2),
+('Camembert','Un formaggio francese realizzato con latte di mucca',3.80,2,5,'giallo intenso','odore leggero di latte','gusto leggermente piccante.',300,24.26,15.25,0.46,0.46,19.8,0,2.1),
+('Feta','Un formaggio greco realizzato con latte di pecora o di capra',15.90,8,5,'bianco','odore salato e acidulo','gusto  salato e acidulo',250,21,15,1.5,1.5,15.6,0,1.11),
+('Ricotta','Un formaggio italiano realizzato con siero di latte vaccino',10,7,3,'bianco','odore di latte frescio','gusto delicato',174,13,8,3,0.3,11,0,5),
+('Emmental','Un formaggio svizzero realizzato con latte di mucca.',16.5,3,1,'giallo ','odore di latte','gusto delicato',403,31,0,1.5,1.3,28.05,0.5,0.3);
+
+insert into formaggy.formaggyo_warehouse (id_formaggyo, id_warehouse,weight)
+values
+(1,10,150),
+(2,9,200),
+(3,8,174),
+(4,7,145),
+(5,6,485),
+(6,5,129),
+(7,4,168),
+(8,3,197),
+(9,2,163),
+(10,1,138);
+
+insert into formaggy.formaggyo_ingredient (id_formaggyo, id_ingredient)
+values 
+(1,1),
+(2,1),
+(3,1),
+(4,1),
+(5,1),
+(6,1),
+(7,1),
+(8,1),
+(9,1),
+(10,1),
+(1,4),
+(2,4),
+(3,4),
+(4,4),
+(5,4),
+(6,4),
+(7,4),
+(8,4),
+(9,4),
+(10,4),
+(3,8),
+(5,5),
+(4,5);
+
+insert into formaggy.supply_formaggyo (id_supply, id_formaggyo,weight)
+values
+(1,10,140),
+(2,9,168),
+(3,8,148),
+(4,7,156),
+(5,6,159),
+(6,5,196),
+(7,4,180),
+(8,3,189),
+(9,2,174),
+(10,1,245)
+;
+
+insert into formaggy.formaggyo_size (id_formaggyo, id_size)
+values
+(1,7),
+(2,4),
+(3,5),
+(4,5),
+(5,4),
+(6,6),
+(7,3),
+(8,1),
+(9,2),
+(10,8);
+
+insert into formaggy.`order` (id_account,address,total_price,status)
+values
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',150.45,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',456,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',138,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',4156,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',168.56,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',186,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',1568,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',564,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',456.0,1),
+(4,'dressadore.claudio@iisviolamarchesini.edu.it',129.26,1);
+
+insert into formaggy.order_formaggyo (id_order,id_formaggyo,weight)
+values
+(1,5,15),
+(2,4,155),
+(3,5,54),
+(4,3,15),
+(5,2,46),
+(6,8,123),
+(7,10,546),
+(8,10,156),
+(9,2,165),
+(10,1,16),
+(1,2,26),
+(2,3,43),
+(3,4,123),
+(4,5,54),
+(5,6,756),
+(6,7,756),
+(7,8,345),
+(8,9,213),
+(9,10,651);
