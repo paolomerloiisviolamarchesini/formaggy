@@ -1,6 +1,3 @@
-
-alter table order_formaggyo
-add constraint fk_order_formaggyo_formaggyo foreign key (id_formaggyo) references formaggyo(id);
 insert into formaggy.certification(acronym,name)
 values 
 ('DOP','Denominazione di origine protetta'),
