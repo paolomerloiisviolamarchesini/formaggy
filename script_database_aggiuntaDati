@@ -1,4 +1,4 @@
-insert into formaggy.certification(acronym,name)
+insert into certification(acronym,name)
 values 
 ('DOP','Denominazione di origine protetta'),
 ('IGP','Indicazione Geografica Protetta'),
@@ -7,7 +7,7 @@ values
 ('ISO','International Organization for Standardization')
 ;
 
-insert into formaggy.category(name)
+insert into category(name)
 values 
 ('Freschi'),
 ('Molli'),
@@ -19,7 +19,7 @@ values
 ('Freschi di latte di capra')
 ;
 
-insert into formaggy.warehouse (address)
+insert into warehouse (address)
 values
 ('Via Dante Alighieri'),
 ('Corso Umberto I'),
@@ -32,7 +32,7 @@ values
 ('Via della Spiga'),
 ('Lungarno Corsini');
 
-insert into formaggy.ingredient(name, description)
+insert into ingredient(name, description)
 values
 ('Latte',' fresco e molto buono'),
 ('Caglio','molto pregiato'),
@@ -44,7 +44,7 @@ values
 ('Coloranti','usati per dargli un colore più vivace'),
 ('Conservanti','di alta qualità');
 
-insert into formaggy.`size`(weight)
+insert into `size`(weight)
 values 
 (0.25),
 (0.5),
@@ -56,7 +56,7 @@ values
 (3)
 ;
 
-insert into formaggy.account (email,username,secret,permits)
+insert into account (email,username,secret,permits)
 values 
 ('formenton.matteo@iisviolamarchesini.edu.it','formenton matteo', '1234',1),
 ('zanella.andrea@iisviolamarchesini.edu.it','zanella andrea', '1234',1),
@@ -64,7 +64,7 @@ values
 ('dressadore.claudio@iisviolamarchesini.edu.it','dressadore claudio', '1234',2)
 ;
 
-insert into formaggy.dairy (name, address, telephon_number,email,website) 
+insert into dairy (name, address, telephon_number,email,website) 
 values 
 ('La Bottega del Formaggio','Via Garibaldi','02 12345678','laBottegadelFormaggio@gmail.com','laBottegadelFormaggio.com'),
 ('La Cascina dei Sapori','Piazza Navona','06 23456789','CascinadeiSapori@gmail.com','CascinadeiSapori.com'),
@@ -77,7 +77,7 @@ values
 ('Il Caseificio del Montefeltro','Piazza Bra','055 90123456','CaseificiodelMontefeltro@gmail.com','CaseificiodelMontefeltro.com'),
 ('La Fattoria della Tradizione','Via Dante','081 01234567','FattoriadellaTradizione@gmail.com','FattoriadellaTradizione.com');
 
-insert into formaggy.supply (id_account,id_dairy,total_price,status)
+insert into supply (id_account,id_dairy,total_price,status)
 values
 (1,10,115.50,1),
 (2,9,1450.23,1),
@@ -90,7 +90,7 @@ values
 (3,2,1731.00,1),
 (1,1,1639.00,1);
 
-insert into formaggy.formaggyo (name,description,price_kg,id_category,id_certification,color,smell,taste,kcal,fats,satured_fats,carbohydrates,sugars,proteins,fibers,salts)
+insert into formaggyo (name,description,price_kg,id_category,id_certification,color,smell,taste,kcal,fats,satured_fats,carbohydrates,sugars,proteins,fibers,salts)
 values
 ('Parmiggiano Reggiano','Un formaggio italiano realizzato con latte vaccinostagionato per un minimo di 12 mesi',6.10,4,1,'giallo intenso','odore di latte','gusto deciso',402,29.7,19.6,0,0,32.4,0,1.6),
 ('Mozzarella','Un formaggio italiano realizzato con latte di bufala o di mucca,',16,1,2,'bianco','odore di latte fresco di qualità','gusto intenso di latte',265,21.10,13.20,0.90,0.90,18.30,0,0.4),
@@ -103,7 +103,7 @@ values
 ('Ricotta','Un formaggio italiano realizzato con siero di latte vaccino',10,7,3,'bianco','odore di latte frescio','gusto delicato',174,13,8,3,0.3,11,0,5),
 ('Emmental','Un formaggio svizzero realizzato con latte di mucca.',16.5,3,1,'giallo ','odore di latte','gusto delicato',403,31,0,1.5,1.3,28.05,0.5,0.3);
 
-insert into formaggy.formaggyo_warehouse (id_formaggyo, id_warehouse,weight)
+insert into formaggyo_warehouse (id_formaggyo, id_warehouse,weight)
 values
 (1,10,150),
 (2,9,200),
@@ -116,7 +116,7 @@ values
 (9,2,163),
 (10,1,138);
 
-insert into formaggy.formaggyo_ingredient (id_formaggyo, id_ingredient)
+insert into formaggyo_ingredient (id_formaggyo, id_ingredient)
 values 
 (1,1),
 (2,1),
@@ -142,7 +142,7 @@ values
 (5,5),
 (4,5);
 
-insert into formaggy.supply_formaggyo (id_supply, id_formaggyo,weight)
+insert into supply_formaggyo (id_supply, id_formaggyo,weight)
 values
 (1,10,140),
 (2,9,168),
@@ -156,7 +156,7 @@ values
 (10,1,245)
 ;
 
-insert into formaggy.formaggyo_size (id_formaggyo, id_size)
+insert into formaggyo_size (id_formaggyo, id_size)
 values
 (1,7),
 (2,4),
@@ -169,7 +169,7 @@ values
 (9,2),
 (10,8);
 
-insert into formaggy.`order` (id_account,address,total_price,status)
+insert into `order` (id_account,address,total_price,status)
 values
 (4,'dressadore.claudio@iisviolamarchesini.edu.it',150.45,1),
 (4,'dressadore.claudio@iisviolamarchesini.edu.it',456,1),
@@ -182,7 +182,7 @@ values
 (4,'dressadore.claudio@iisviolamarchesini.edu.it',456.0,1),
 (4,'dressadore.claudio@iisviolamarchesini.edu.it',129.26,1);
 
-insert into formaggy.order_formaggyo (id_order,id_formaggyo,weight)
+insert into order_formaggyo (id_order,id_formaggyo,weight)
 values
 (1,5,15),
 (2,4,155),
