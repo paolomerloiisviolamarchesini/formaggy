@@ -7,9 +7,9 @@ class Connect
     {
         $host = "localhost";
         $port = "3306";
-        $db   = "my_paninaraevomatic";
-        $user = "paninaraevomatic";
-        $pass = "fayiZXAwe3h2rbN";
+        $db   = "my_formaggy";
+        $user = "formaggy";
+        $pass = "5aUuWTj456aj";
 
         try {
             $this->dbConnection = new PDO(
