@@ -7,7 +7,7 @@ spl_autoload_register(function ($class) {
 set_exception_handler("errorHandler::handleException");
 set_error_handler("errorHandler::handleError");
 
-class User
+class Account
 {
     private Connect $db;
     private PDO $conn;
@@ -18,11 +18,11 @@ class User
         $this->conn = $this->db->getConnection();
     }
 
-    public function getUser($id)
+    public function getAccount($id)
     {
         $sql = "SELECT id, email, username, secret, permits
                 FROM account a 
-                WHERE id = :id ";
+                WHERE id = :id";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
@@ -30,6 +30,18 @@ class User
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function getArchiveAccount()
+    {
+        $sql = "SELECT id, email, username, secret, permits
+                FROM account a
+                WHERE 1 = 1";
+        
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
