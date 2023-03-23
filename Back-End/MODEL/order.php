@@ -20,10 +20,10 @@ class Order
 
     public function getOrder($id) //ritorna l'ordine richiesto ricevendo in input l'id dell'ordine stesso
     {
-        $sql = "SELECT o.id, o.id_account, o.address, o.date_order, f.name, of2.weight, o.total_price, o.status
+        $sql = "SELECT o.id, o.id_account, o.address, o.date_order, f.name, of.weight, o.total_price, o.status
         from `order` o
-        inner join order_formaggyo of2 on o.id = of2.id_order
-        inner join formaggyo f on f.id = of2.id_formaggyo
+        inner join order_formaggyo of on o.id = of.id_order
+        inner join formaggyo f on f.id = of.id_formaggyo
         where o.id = :id ";
 
         $stmt = $this->conn->prepare($sql);
@@ -36,10 +36,10 @@ class Order
 
     public function getArchiveOrder() //Ritorna tutti gli ordini.
     {
-        $query = "SELECT o.id, o.id_account, o.address, o.date_order, f.name, of2.weight, o.total_price, o.status
+        $query = "SELECT o.id, o.id_account, o.address, o.date_order, f.name, of.weight, o.total_price, o.status
         from `order` o
-        inner join order_formaggyo of2 on o.id = of2.id_order
-        inner join formaggyo f on f.id = of2.id_formaggyo";
+        inner join order_formaggyo of on o.id = of.id_order
+        inner join formaggyo f on f.id = of.id_formaggyo";
 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
