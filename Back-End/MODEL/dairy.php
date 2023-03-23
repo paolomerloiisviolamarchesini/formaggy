@@ -7,7 +7,7 @@ spl_autoload_register(function ($class) {
 set_exception_handler("errorHandler::handleException");
 set_error_handler("errorHandler::handleError");
 
-class User
+class 
 {
     private PDO $conn;
     private Connect $db;
@@ -19,7 +19,7 @@ class User
     }
 
 
-    public function getArchiveDiary() //Ritorna tutti i fornitori.
+    public function getArchiveDairy() //Ritorna tutti i fornitori.
     {
         $query = "SELECT id, name, address, telephon_number, email, website
         from dairy d";
