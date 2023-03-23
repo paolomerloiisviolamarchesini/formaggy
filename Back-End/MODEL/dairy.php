@@ -7,7 +7,7 @@ spl_autoload_register(function ($class) {
 set_exception_handler("errorHandler::handleException");
 set_error_handler("errorHandler::handleError");
 
-class 
+class Dairy
 {
     private PDO $conn;
     private Connect $db;
