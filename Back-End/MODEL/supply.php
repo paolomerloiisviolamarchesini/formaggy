@@ -36,7 +36,7 @@ class Supply
     
     public function getSupplyFormaggy($id) //Ritorna i prodotti di un ordine
     {
-        $sql = "SELECT f.id, f.name, f.description, c.name as category, c2.acronym as certification, f.price_kg, f.color, f.smell, f.taste, f.expiry_date, f.kcal, f.fats, f.satured_fats, f.carbohydrates, f.sugars, f.proteins, f.fibers, f.salts
+        $sql = "SELECT f.id, f.name, f.description, sf.weight
         FROM supply s
         INNER JOIN supply_formaggyo sf ON s.id = sf.id_supply
         INNER JOIN formaggyo f on f.id = sf.id_formaggyo
