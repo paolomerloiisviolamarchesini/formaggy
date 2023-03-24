@@ -29,5 +29,18 @@ class Dairy
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+    public function getDairy($id)
+    {
+        $query = "SELECT id, name, address, telephon_number, email, website
+        FROM dairy
+        WHERE id = :id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>
