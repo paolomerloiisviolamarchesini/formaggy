@@ -17,6 +17,21 @@ class Supply
         $this->db = new Connect;
         $this->conn = $this->db->getConnection();
     }
+    
+    public function getArchiveSupply() //Ritorna tutti gli ordini
+    {
+        $sql = "SELECT s.id, a.username, d.name as dairy_name, s.date_supply, s.total_price, s.status
+        FROM supply s
+        INNER JOIN dairy d on s.id_dairy = d.id
+        INNER JOIN account a on a.id = s.id_account
+        WHERE 1 = 1
+        ORDER BY s.date_supply desc";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
     public function getSupply($id) //Ritorna l'ordine richiesto fatto al fornitore ricevendo in input l'id
     {
