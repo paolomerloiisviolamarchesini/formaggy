@@ -18,15 +18,29 @@ class Supply
         $this->conn = $this->db->getConnection();
     }
 
-    public function getSupply($id) //ritorna l'ordine richiesto fatto al fornitore ricevendo in input l'id dell'ordine stesso
+    public function getSupply($id) //Ritorna l'ordine richiesto fatto al fornitore ricevendo in input l'id
     {
-        $sql = "SELECT s.id, a.username, d.name, f.name, s.date_supply, sf.weight, s.total_price, s.status
-        from supply s
-        inner join dairy d on s.id_dairy = d.id
-        inner join account a on a.id = s.id_account
-        inner join supply_formaggyo sf on sf.id_supply = s.id
-        inner join formaggyo f on sf.id_formaggyo = f.id
-        where s.id = :id ";
+        $sql = "SELECT s.id, a.username, d.name as dairy_name, s.date_supply, s.total_price, s.status
+        FROM supply s
+        INNER JOIN dairy d on s.id_dairy = d.id
+        INNER JOIN account a on a.id = s.id_account
+        WHERE s.id = :id";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    
+    public function getSupplyFormaggy($id) //Ritorna i prodotti di un ordine
+    {
+        $sql = "SELECT 
+        FROM supply s
+        INNER JOIN supply_formaggyo sf ON s.id = sf.id_supply
+        INNER JOIN formaggyo f on f.id = sf.id_formaggyo
+        WHERE s.id = :id";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
