@@ -27,5 +27,18 @@ class Ingredient
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
+        public function getIngredient($id) //Ritorna tutti gli ingredienti.
+    {
+        $query = "SELECT id, name, description
+        from ingredient i
+        where id = :id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id",$id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 }
 ?>
