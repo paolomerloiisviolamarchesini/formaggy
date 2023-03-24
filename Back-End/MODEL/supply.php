@@ -36,10 +36,12 @@ class Supply
     
     public function getSupplyFormaggy($id) //Ritorna i prodotti di un ordine
     {
-        $sql = "SELECT 
+        $sql = "SELECT f.id, f.name, f.description, c.name as category, c2.acronym as certification, f.price_kg, f.color, f.smell, f.taste, f.expiry_date, f.kcal, f.fats, f.satured_fats, f.carbohydrates, f.sugars, f.proteins, f.fibers, f.salts
         FROM supply s
         INNER JOIN supply_formaggyo sf ON s.id = sf.id_supply
         INNER JOIN formaggyo f on f.id = sf.id_formaggyo
+        INNER JOIN category c on f.id_category = c.id
+        INNER JOIN certification c2 on f.id_certification = c2.id
         WHERE s.id = :id";
 
         $stmt = $this->conn->prepare($sql);
@@ -47,7 +49,7 @@ class Supply
 
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 }
 ?>
