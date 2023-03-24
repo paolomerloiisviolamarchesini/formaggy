@@ -17,31 +17,43 @@ class Order
         $this->db = new Connect;
         $this->conn = $this->db->getConnection();
     }
+    
+        public function getArchiveOrder() //Ritorna tutti gli ordini.
+    {
+        $query = "SELECT o.id, a.username, o.address, o.date_order, o.total_price, o.status
+        from `order` o
+        inner join account a on o.id_account = a.id";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     public function getOrder($id) //ritorna l'ordine richiesto ricevendo in input l'id dell'ordine stesso
     {
-        $sql = "SELECT o.id, o.id_account, o.address, o.date_order, f.name, of.weight, o.total_price, o.status
+        $sql = "SELECT o.id, a.username , o.address, o.date_order, o.total_price, o.status
         from `order` o
-        inner join order_formaggyo of on o.id = of.id_order
-        inner join formaggyo f on f.id = of.id_formaggyo
-        where o.id = :id ";
+        inner join account a on a.id = o.id_account 
+        where o.id = :id";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-    public function getArchiveOrder() //Ritorna tutti gli ordini.
+    
+    public function getOrderFormaggy($id) //Ritorna i prodotti di un ordine
     {
-        $query = "SELECT o.id, o.id_account, o.address, o.date_order, f.name, of.weight, o.total_price, o.status
+        $sql = "SELECT f.id, f.name, f.description, of2.weight
         from `order` o
-        inner join order_formaggyo of on o.id = of.id_order
-        inner join formaggyo f on f.id = of.id_formaggyo";
+        inner join order_formaggyo of2 on of2.id_order = o.id
+        inner join formaggyo f on f.id = of2.id_formaggyo 
+        where o.id = :id";
 
-        $stmt = $this->conn->prepare($query);
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
