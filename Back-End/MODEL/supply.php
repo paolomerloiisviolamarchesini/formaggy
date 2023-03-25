@@ -55,8 +55,6 @@ class Supply
         FROM supply s
         INNER JOIN supply_formaggyo sf ON s.id = sf.id_supply
         INNER JOIN formaggyo f on f.id = sf.id_formaggyo
-        INNER JOIN category c on f.id_category = c.id
-        INNER JOIN certification c2 on f.id_certification = c2.id
         WHERE s.id = :id";
 
         $stmt = $this->conn->prepare($sql);
