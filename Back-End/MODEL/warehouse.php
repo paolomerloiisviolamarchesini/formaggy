@@ -17,13 +17,22 @@ class Warehouse
         $this->db = new Connect;
         $this->conn = $this->db->getConnection();
     }
-
-    public function getWarehouse($id) //ritorna il magazzino richiesto ricevendo in input l'id dell'magazzino stesso
+    
+   public function getArchiveWarehouse() //Ritorna tutti i magazzini.
     {
-        $sql = "SELECT w.id, f.name, fw.weight
+        $query = "SELECT id, address
+        from warehouse w";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+   public function getWarehouse($id) //ritorna il magazzino richiesto ricevendo in input l'id dell'magazzino stesso
+    {
+        $sql = "SELECT id, address
         from warehouse w
-        inner join formaggyo_warehouse fw on fw.id_warehouse = w.id
-        inner join formaggyo f on fw.id_formaggyo = f.id
         where w.id = :id ";
 
         $stmt = $this->conn->prepare($sql);
@@ -33,16 +42,21 @@ class Warehouse
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
-
-    public function getArchiveWarehouse() //Ritorna tutti i magazzini.
+    
+   public function getWarehouseFormaggyo(:id) //Ritorna tutti i magazzini.
     {
-        $query = "SELECT id, address
-        from warehouse w";
+        $query = "SELECT f.id, f.name, fw.weight 
+                    from warehouse w 
+                    inner join formaggyo_warehouse fw on fw.id_warehouse = w.id
+                    inner join formaggyo f on fw.id_formaggyo = f.id 
+                    where w.id = ";
 
         $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+       
         $stmt->execute();
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchall(PDO::FETCH_ASSOC);
     }
 }
 ?>
