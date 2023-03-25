@@ -49,7 +49,7 @@ class Warehouse
                     from warehouse w 
                     inner join formaggyo_warehouse fw on fw.id_warehouse = w.id
                     inner join formaggyo f on fw.id_formaggyo = f.id 
-                    where w.id = ";
+                    where w.id = :id";
 
         $stmt = $this->conn->prepare($query);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
