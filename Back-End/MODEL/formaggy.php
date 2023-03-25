@@ -64,5 +64,20 @@ class Formaggy
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+            public function getFormaggySizes($id) //ritorna le taglie del formaggio richiesto
+    {
+        $sql = " SELECTs.id, s.weight 
+                from formaggyo f 
+                inner join formaggyo_size fs on fs.id_formaggyo =f.id 
+                inner join `size` s on s.id =fs.id_size 
+                where f.id == :id ";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->fetchall(PDO::FETCH_ASSOC);
+    }
 }
 ?>
