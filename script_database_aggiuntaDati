@@ -58,10 +58,10 @@ values
 
 insert into account (email,username,secret,permits)
 values 
-('formenton.matteo@iisviolamarchesini.edu.it','formenton matteo', '1234',1),
-('zanella.andrea@iisviolamarchesini.edu.it','zanella andrea', '1234',1),
-('temporin.simone@iisviolamarchesini.edu.it','temporin simone', '1234',1),
-('dressadore.claudio@iisviolamarchesini.edu.it','dressadore claudio', '1234',2)
+('formenton.matteo@iisviolamarchesini.edu.it','formentonmatteo', '1234',1),
+('zanella.andrea@iisviolamarchesini.edu.it','zanellaandrea', '1234',1),
+('temporin.simone@iisviolamarchesini.edu.it','temporinsimone', '1234',1),
+('dressadore.claudio@iisviolamarchesini.edu.it','dressadoreclaudio', '1234',2)
 ;
 
 insert into dairy (name, address, telephon_number,email,website) 
@@ -171,16 +171,16 @@ values
 
 insert into `order` (id_account,address,total_price,status)
 values
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',150.45,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',456,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',138,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',4156,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',168.56,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',186,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',1568,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',564,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',456.0,1),
-(4,'dressadore.claudio@iisviolamarchesini.edu.it',129.26,1);
+(4,'Magazzino di Claudio',150.45,1),
+(4,'Magazzino di Claudio',456,1),
+(4,'Magazzino di Claudio',138,1),
+(4,'Magazzino di Claudio',4156,1),
+(4,'Magazzino di Claudio',168.56,1),
+(4,'Magazzino di Claudio',186,1),
+(4,'Magazzino di Claudio',1568,1),
+(4,'Magazzino di Claudio',564,1),
+(4,'Magazzino di Claudio',456.0,1),
+(4,'Magazzino di Claudio',129.26,1);
 
 insert into order_formaggyo (id_order,id_formaggyo,weight)
 values
