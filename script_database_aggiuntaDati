@@ -66,42 +66,42 @@ values
 
 insert into dairy (name, address, telephon_number,email,website) 
 values 
-('La Bottega del Formaggio','Via Garibaldi','02 12345678','laBottegadelFormaggio@gmail.com','laBottegadelFormaggio.com'),
-('La Cascina dei Sapori','Piazza Navona','06 23456789','CascinadeiSapori@gmail.com','CascinadeiSapori.com'),
-('Il Caseificio delle Alpi','Via dei Condotti','055 34567890','CaseificiodelleAlpi@gmail.com','ArtedelFormaggio.com'),
-('Arte del Formaggio','Corso Italia','081 45678901','ArtedelFormaggio@gmail.com','ArtedelFormaggio.com'),
-('La Fattoria delle Gustose Delizie','Piazza del Popolo','011 56789012','FattoriadelleGustoseDelizie@gmail.com','FattoriadelleGustoseDelizie.com'),
-('La Latteria del Buongustaio','Via Veneto','051 67890123','LatteriadelBuongustaio@gmail.com','LatteriadelBuongustaio.com'),
-('Il Caseificio del Borgo','Corso Buenos Aires','02 78901234','CaseificiodelBorgo@gmail.com','CaseificiodelBorgo.com'),
-('La Bottega dei Formaggi Preziosi','Via dei Tornabuoni','06 89012345','BottegadeiFormaggiPreziosi@gmail.com','BottegadeiFormaggiPreziosi.com'),
-('Il Caseificio del Montefeltro','Piazza Bra','055 90123456','CaseificiodelMontefeltro@gmail.com','CaseificiodelMontefeltro.com'),
-('La Fattoria della Tradizione','Via Dante','081 01234567','FattoriadellaTradizione@gmail.com','FattoriadellaTradizione.com');
+('La Bottega del Formaggio','Via Garibaldi','02 12345678','laBottegadelFormaggio@gmail.com','labottegadelformaggio.com'),
+('La Cascina dei Sapori','Piazza Navona','06 23456789','CascinadeiSapori@gmail.com','cascinadeisapori.com'),
+('Il Caseificio delle Alpi','Via dei Condotti','055 34567890','CaseificiodelleAlpi@gmail.com','artedelformaggio.com'),
+('Arte del Formaggio','Corso Italia','081 45678901','ArtedelFormaggio@gmail.com','artedelformaggio.com'),
+('La Fattoria delle Gustose Delizie','Piazza del Popolo','011 56789012','FattoriadelleGustoseDelizie@gmail.com','fattoriadellegustosedelizie.com'),
+('La Latteria del Buongustaio','Via Veneto','051 67890123','LatteriadelBuongustaio@gmail.com','latteriadelbuongustaio.com'),
+('Il Caseificio del Borgo','Corso Buenos Aires','02 78901234','CaseificiodelBorgo@gmail.com','caseificiodelborgo.com'),
+('La Bottega dei Formaggi Preziosi','Via dei Tornabuoni','06 89012345','BottegadeiFormaggiPreziosi@gmail.com','bottegadeiformaggipreziosi.com'),
+('Il Caseificio del Montefeltro','Piazza Bra','055 90123456','CaseificiodelMontefeltro@gmail.com','caseificiodelmontefeltro.com'),
+('La Fattoria della Tradizione','Via Dante','081 01234567','FattoriadellaTradizione@gmail.com','fattoriadellatradizione.com');
 
-insert into supply (id_account,id_dairy,total_price,status)
+insert into supply (id_account,id_dairy,total_price,status,date_supply)
 values
-(1,10,115.50,1),
-(2,9,1450.23,1),
-(3,8,2000.00,1),
-(1,7,1000.00,1),
-(2,6,1750.60,1),
-(3,5,3000.00,1),
-(1,4,4500.00,1),
-(2,3,1489.00,1),
-(3,2,1731.00,1),
-(1,1,1639.00,1);
+(1,10,115.50,1,'2023-03-30 08:23:31'),
+(2,9,1450.23,1,'2023-03-30 08:23:31'),
+(3,8,2000.00,1,'2023-03-30 08:23:31'),
+(1,7,1000.00,1,'2023-03-30 08:23:31'),
+(2,6,1750.60,1,'2023-03-30 08:23:31'),
+(3,5,3000.00,1,'2023-03-30 08:23:31'),
+(1,4,4500.00,1,'2023-03-30 08:23:31'),
+(2,3,1489.00,1,'2023-03-30 08:23:31'),
+(3,2,1731.00,1,'2023-03-30 08:23:31'),
+(1,1,1639.00,1,'2023-03-30 08:23:31');
 
-insert into formaggyo (name,description,price_kg,id_category,id_certification,color,smell,taste,kcal,fats,satured_fats,carbohydrates,sugars,proteins,fibers,salts)
+insert into formaggyo (name,description,price_kg,id_category,id_certification,color,smell,taste,kcal,fats,satured_fats,carbohydrates,sugars,proteins,fibers,salts,expiry_date)
 values
-('Parmiggiano Reggiano','Un formaggio italiano realizzato con latte vaccinostagionato per un minimo di 12 mesi',6.10,4,1,'giallo intenso','odore di latte','gusto deciso',402,29.7,19.6,0,0,32.4,0,1.6),
-('Mozzarella','Un formaggio italiano realizzato con latte di bufala o di mucca,',16,1,2,'bianco','odore di latte fresco di qualità','gusto intenso di latte',265,21.10,13.20,0.90,0.90,18.30,0,0.4),
-('Cheddar','Un formaggio inglese realizzato con latte di mucca,',3.00,2,2,'arancione','odore di latte di mucca ','gusto forte e piccante',402,32.0,21.0,0.4,0.4,27.0,0,1.5),
-('Gorgonzola','Un formaggio italiano realizzato con latte vaccino, stagionato con muffe blu-verdi',5.75,5,3,'bianco e blu','odore pungente','gusto forte e distintivo',314,27.0,19.0,0,0,18,0,1.6),
-('Roquefort','Un formaggio francese realizzato con latte di pecora,stagionato con muffe blu-verdi',55,2,3,'blu e verde','odore di latte pungente','gusto forte e salato',369,30.64,19.2,2,0,21.54,0,3.5),
-('Brie',' Un formaggio francese realizzato con latte di mucca',14.95,2,5,'gallastro','odore leggero di latte','gusto leggermente dolce',334,27.68,17.41,0.45,0.45,20.75,0,1.2),
-('Camembert','Un formaggio francese realizzato con latte di mucca',3.80,2,5,'giallo intenso','odore leggero di latte','gusto leggermente piccante.',300,24.26,15.25,0.46,0.46,19.8,0,2.1),
-('Feta','Un formaggio greco realizzato con latte di pecora o di capra',15.90,8,5,'bianco','odore salato e acidulo','gusto  salato e acidulo',250,21,15,1.5,1.5,15.6,0,1.11),
-('Ricotta','Un formaggio italiano realizzato con siero di latte vaccino',10,7,3,'bianco','odore di latte frescio','gusto delicato',174,13,8,3,0.3,11,0,5),
-('Emmental','Un formaggio svizzero realizzato con latte di mucca.',16.5,3,1,'giallo ','odore di latte','gusto delicato',403,31,0,1.5,1.3,28.05,0.5,0.3);
+('Parmiggiano Reggiano','Un formaggio italiano realizzato con latte vaccinostagionato per un minimo di 12 mesi',6.10,4,1,'giallo intenso','odore di latte','gusto deciso',402,29.7,19.6,0,0,32.4,0,1.6,'2029-03-24 08:23:31'),
+('Mozzarella','Un formaggio italiano realizzato con latte di bufala o di mucca,',16,1,2,'bianco','odore di latte fresco di qualità','gusto intenso di latte',265,21.10,13.20,0.90,0.90,18.30,0,0.4,'2027-03-24 08:23:31'),
+('Cheddar','Un formaggio inglese realizzato con latte di mucca,',3.00,2,2,'arancione','odore di latte di mucca ','gusto forte e piccante',402,32.0,21.0,0.4,0.4,27.0,0,1.5,'2028-03-24 08:23:31'),
+('Gorgonzola','Un formaggio italiano realizzato con latte vaccino, stagionato con muffe blu-verdi',5.75,5,3,'bianco e blu','odore pungente','gusto forte e distintivo',314,27.0,19.0,0,0,18,0,1.6,'2029-03-24 08:23:31'),
+('Roquefort','Un formaggio francese realizzato con latte di pecora,stagionato con muffe blu-verdi',55,2,3,'blu e verde','odore di latte pungente','gusto forte e salato',369,30.64,19.2,2,0,21.54,0,3.5,'2025-03-24 08:23:31'),
+('Brie',' Un formaggio francese realizzato con latte di mucca',14.95,2,5,'gallastro','odore leggero di latte','gusto leggermente dolce',334,27.68,17.41,0.45,0.45,20.75,0,1.2,'2027-03-24 08:23:31'),
+('Camembert','Un formaggio francese realizzato con latte di mucca',3.80,2,5,'giallo intenso','odore leggero di latte','gusto leggermente piccante.',300,24.26,15.25,0.46,0.46,19.8,0,2.1,'2023-03-24 08:23:31'),
+('Feta','Un formaggio greco realizzato con latte di pecora o di capra',15.90,8,5,'bianco','odore salato e acidulo','gusto  salato e acidulo',250,21,15,1.5,1.5,15.6,0,1.11,'2030-03-24 08:23:31'),
+('Ricotta','Un formaggio italiano realizzato con siero di latte vaccino',10,7,3,'bianco','odore di latte frescio','gusto delicato',174,13,8,3,0.3,11,0,5,'2026-03-24 08:23:31'),
+('Emmental','Un formaggio svizzero realizzato con latte di mucca.',16.5,3,1,'giallo ','odore di latte','gusto delicato',403,31,0,1.5,1.3,28.05,0.5,0.3,'2024-03-24 08:23:31');
 
 insert into formaggyo_warehouse (id_formaggyo, id_warehouse,weight)
 values
@@ -169,18 +169,18 @@ values
 (9,2),
 (10,8);
 
-insert into `order` (id_account,address,total_price,status)
+insert into `order` (id_account,address,total_price,status,date_order)
 values
-(4,'Magazzino di Claudio',150.45,1),
-(4,'Magazzino di Claudio',456,1),
-(4,'Magazzino di Claudio',138,1),
-(4,'Magazzino di Claudio',4156,1),
-(4,'Magazzino di Claudio',168.56,1),
-(4,'Magazzino di Claudio',186,1),
-(4,'Magazzino di Claudio',1568,1),
-(4,'Magazzino di Claudio',564,1),
-(4,'Magazzino di Claudio',456.0,1),
-(4,'Magazzino di Claudio',129.26,1);
+(4,'Magazzino di Claudio',150.45,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',456,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',138,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',4156,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',168.56,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',186,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',1568,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',564,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',456.0,1,'2023-04-24 08:23:31'),
+(4,'Magazzino di Claudio',129.26,1,'2023-04-24 08:23:31');
 
 insert into order_formaggyo (id_order,id_formaggyo,weight)
 values
