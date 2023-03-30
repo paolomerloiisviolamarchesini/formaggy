@@ -38,8 +38,6 @@ class Formaggy
         from formaggyo f
         inner join category c on c.id = f.id_category
         inner join certification c2 on c2.id = f.id_certification
-        inner join formaggyo_size fs ON fs.id_formaggyo = f.id
-        inner join `size` s on s.id = fs.id_size
         where f.id = :id";
 
         $stmt = $this->conn->prepare($sql);
