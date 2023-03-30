@@ -30,7 +30,7 @@ class Supply
         $stmt = $this->conn->prepare($sql);
         $stmt->execute();
 
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getSupply($id) //Ritorna l'ordine richiesto fatto al fornitore ricevendo in input l'id
