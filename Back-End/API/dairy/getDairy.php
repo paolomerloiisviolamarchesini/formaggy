@@ -10,9 +10,9 @@ header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Origin'
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
-if (empty($parts[4])) {
+if (empty($parts[5])) {
     http_response_code(404);
-    echo json_encode(["message" => "Insert a valid ID"]);
+    echo json_encode(["message" => "Inserisci un ID valido"]);
     exit();
 }
 
@@ -24,7 +24,7 @@ if ($result != false) {
     echo json_encode($result);
 } else {
     http_response_code(400);
-    echo json_encode(["message" => "Dairy not found"]);
+    echo json_encode(["message" => "Caseificio non trovato"]);
 }
 
 ?>
