@@ -8,8 +8,8 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Origin');
 
-$query = new Dairy;
-$result = $query->getArchiveDairy();
+$dairy = new Dairy;
+$result = $dairy->getArchiveDairy();
 
 $archiveDairies = array();
 for ($i = 0; $i < (count($result)); $i++) {
@@ -28,7 +28,8 @@ if (!empty($archiveDairies)) {
     echo json_encode($archiveDairies);
 } else {
     http_response_code(404);
-    echo json_encode(["message" => "Can't find any dairies"]);
+    echo json_encode(["message" => "La ricerca non ha prodotto risultati"]);
 }
 
 ?>
+
