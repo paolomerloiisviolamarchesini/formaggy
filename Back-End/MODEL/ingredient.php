@@ -40,5 +40,78 @@ class Ingredient
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+        public function addIngredient($name, $description)
+    {
+        $sql = "SELECT i.id
+        FROM ingredient i
+        WHERE i.name = :name AND i.description=:description";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->execute();
+
+
+       if($stmt->rowCount()==0)
+       {
+        $sql = "INSERT  into ingredient (name, description)
+        values (:name,:description)";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->execute();
+        return ["message" => "Ingrediente creato con successo"];
+
+       } else 
+       {
+        return ["message" => "Ingrediente già esistente"];
+       } 
+    
+    }
+
+    public function modifyIngredient($id_ingredient, $name, $description)
+    {
+        $sql="UPDATE ingredient
+        SET description = :description
+        WHERE id=:id_ingredient";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':description', $description, PDO::PARAM_STR);
+        $stmt->bindValue(':id_ingredient', $id_ingredient, PDO::PARAM_INT);
+        $stmt->execute();
+        $cnt=$stmt->rowCount();
+
+        $sql="UPDATE ingredient
+        SET name = :name 
+        WHERE id=:id_ingredient";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':name', $name , PDO::PARAM_STR);
+        $stmt->bindValue(':id_ingredient', $id_ingredient, PDO::PARAM_INT);
+        $stmt->execute();
+        $cnt+=$stmt->rowCount();
+
+        return $cnt;
+
+        /* fai query che ti ritorna l'ingrediente modificato */
+    }
+
+    public function deleteIngredient($id_ingredient)
+    {
+        $sql="DELETE from formaggyo_ingredient where id_ingredient =:id_ingredient";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_ingredient', $id_ingredient, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql="DELETE from ingredient where id =:id_ingredient";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_ingredient', $id_ingredient, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount();
+
+    }
 }
 ?>
