@@ -18,8 +18,9 @@ array_push($categoryArchivecategorys, $categoryArchivecategory);
 
 if (empty($categoryArchivecategorys)) {
     echo json_encode(404);
-    echo json_encode(["messaggio" => "Nessuna categoria è stata trovata"]);
+    echo json_encode(["messaggio" => "La ricerca non ha prodotto risultati"]);
 } else {
     http_response_code(200);
     echo json_encode($categoryArchivecategorys);
 }
+?>
