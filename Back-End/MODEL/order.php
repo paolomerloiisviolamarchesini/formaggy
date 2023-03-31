@@ -58,5 +58,30 @@ class Order
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+        public function modifyOrderStatus($status,$id_order)
+    {
+        $sql="UPDATE `order`
+             SET status = :status
+             WHERE id=:id_order";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':status', $status , PDO::PARAM_INT);
+        $stmt->bindValue(':id_order', $id_order, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
+
+    public function deleteOrder($id_order)
+    {
+        $sql="UPDATE `order`
+            set status = 3
+            where id=:id_order";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_order', $id_order, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount();
+
+    }
 }
 ?>
