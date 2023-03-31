@@ -42,5 +42,137 @@ class Dairy
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+        public function addDairy($name,$address,$telephon_number,$email,$website)
+    {
+        $sql="SELECT d.name, d.address, d.email
+        FROM dairy d
+        WHERE d.name=:name AND d.address=:address AND d.email=:email";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':address', $address, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->execute();
+
+        if($stmt->rowCount() == 0)
+        {
+            $sql = "INSERT into dairy (name, address, telephon_number, email, website)
+            values(:name,:address,:telephon_number,:email,:website)";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+        $stmt->bindValue(':address', $address, PDO::PARAM_STR);
+        $stmt->bindValue(':telephon_number', $telephon_number, PDO::PARAM_STR);
+        $stmt->bindValue(':email', $email, PDO::PARAM_STR);
+        $stmt->bindValue(':website', $website, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return ["message" => "Dairy creato con successo"];
+
+        } 
+        else
+            return ["message" => "Dairy già esistente"];
+
+    }
+
+    public function modifyDairy($id_dairy,$name,$address,$telephon_number,$email,$website)
+    {
+        $sql="UPDATE dairy
+              SET name = :name
+              where id=:id_dairy";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+        $stmt->bindValue(':name', $name, PDO::PARAM_STR);
+
+        $stmt->execute();
+        $cnt=$stmt->rowCount();
+
+        $sql="UPDATE dairy
+        SET website = :website
+        where id=:id_dairy";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':website', $website, PDO::PARAM_STR);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $cnt+=$stmt->rowCount();
+
+
+        $sql="UPDATE dairy
+        SET address = :address
+        where id=:id_dairy";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':address', $address, PDO::PARAM_STR);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $cnt+=$stmt->rowCount();
+
+
+        $sql="UPDATE dairy
+        SET telephon_number = :telephon_number 
+        where id=:id_dairy";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':telephon_number', $telephon_number , PDO::PARAM_STR);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $cnt+=$stmt->rowCount();
+
+
+        $sql="UPDATE dairy
+        SET email  = :email 
+        where id=:id_dairy";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':email', $email , PDO::PARAM_STR);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+        $cnt+=$stmt->rowCount();
+
+        return $cnt;
+
+    }
+
+    public function deleteDairy($id_dairy)
+    {
+        $sql="DELETE FROM supply_formaggyo WHERE id_supply=(
+        SELECT supply_formaggyo.id_supply
+        FROM supply
+        INNER JOIN supply_formaggyo ON supply_formaggyo.id_supply =supply.id
+        WHERE supply.id_dairy = :id_dairy)";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $sql="DELETE FROM supply WHERE id_dairy =:id_dairy";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $sql="DELETE FROM dairy WHERE id=:id_dairy";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        $sql="SELECT dairy.id
+        FROM dairy
+        WHERE dairy.id=:id_dairy";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+
+        $stmt->execute();
+        if ($stmt->rowCount() == 0)
+        return 1;
+        else 
+        return 0;
+    }
 }
 ?>
