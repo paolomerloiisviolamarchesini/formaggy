@@ -1,6 +1,11 @@
 <?php
 require __DIR__ . '/../../MODEL/category.php';
+
 header("Content-type: application/json; charset=UTF-8");
+header("Content-type: application/json; charset=UTF-8");
+header('Access-Control-Allow-Origin: *');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Origin');
 
 $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
