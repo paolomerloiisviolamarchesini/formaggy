@@ -78,5 +78,270 @@ class Formaggy
 
         return $stmt->fetchall(PDO::FETCH_ASSOC);
     }
+        public function createFormaggyo($name,$description,$price_kg,$id_category,$id_certification,$color,$smell,$taste,$expiry_date,$kcal,$fats,$satured_fats,$carbohydrates,$sugars,$proteins,$fibers,$salts,$id_ingredient,$id_size) //Inserisce un nuovo prodotto.
+    {
+        $query = "INSERT INTO formaggyo (name,description,price_kg,id_category,id_certification,color,smell,taste,expiry_date,kcal,fats,satured_fats,carbohydrates,sugars,proteins,fibers,salts)
+         VALUES(:name,:description,:price_kg,:id_category,:id_certification,:color,:smell,:taste,:expiry_date,:kcal,:fats,:satured_fats,:carbohydrates,:sugars,:proteins,:fibers,:salts);";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":name",$name,PDO::PARAM_STR);
+        $stmt->bindValue(":description",$description,PDO::PARAM_STR);
+        $stmt->bindValue(":price_kg",$price_kg,PDO::PARAM_INT);
+        $stmt->bindValue(":id_category",$id_category,PDO::PARAM_INT);
+        $stmt->bindValue(":id_certification",$id_certification,PDO::PARAM_INT);
+        $stmt->bindValue(":color",$color,PDO::PARAM_STR);
+        $stmt->bindValue(":smell",$smell,PDO::PARAM_STR);
+        $stmt->bindValue(":taste",$taste,PDO::PARAM_STR);
+        $stmt->bindValue(":expiry_date",$expiry_date,PDO::PARAM_STR);
+        $stmt->bindValue(":kcal",$kcal,PDO::PARAM_INT);
+        $stmt->bindValue(":fats",$fats,PDO::PARAM_INT);
+        $stmt->bindValue(":satured_fats",$satured_fats,PDO::PARAM_INT);
+        $stmt->bindValue(":carbohydrates",$carbohydrates,PDO::PARAM_INT);
+        $stmt->bindValue(":sugars",$sugars,PDO::PARAM_INT);
+        $stmt->bindValue(":proteins",$proteins,PDO::PARAM_INT);
+        $stmt->bindValue(":fibers",$fibers,PDO::PARAM_INT);
+        $stmt->bindValue(":salts",$salts,PDO::PARAM_INT);
+
+        $stmt->execute();
+        for($i=0;$i<(count($id_ingredient));$i++)
+        {
+           $this->addIngredientId($id_ingredient[$i]);
+        }
+
+        $query = "INSERT INTO formaggyo_size(id_formaggyo,id_size)
+                VALUES ((select f.id
+            from formaggyo f
+            order by f.id desc 
+            limit 1),:id_size)";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id_size", $id_size, PDO::PARAM_INT);
+
+            $stmt->execute();
+
+        // Query sul prodotto appena creato
+        $query = "SELECT f.id
+                  FROM formaggyo f
+                  order by f.id desc 
+                  limit 1";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function addIngredientId($id_ingredient)
+    {
+            $query = "INSERT INTO formaggyo_ingredient (id_formaggyo, id_ingredient)
+            values ((select f.id
+            from formaggyo f
+            order by f.id desc 
+            limit 1),:id_ingredient)";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindValue(":id_ingredient", $id_ingredient, PDO::PARAM_INT);    
+            $stmt->execute();
+    }
+
+    public function modifyFormaggyo($id_formaggyo,$name,$description,$price_kg,$id_category,$id_certification,$color,$smell,$taste,$kcal,$fats,$satured_fats,$carbohydrates,$sugars,$proteins,$fibers,$salts)
+    {
+        $query = "UPDATE formaggyo 
+        set name= :name
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":name", $name, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set description= :description
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":description", $description, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set price_kg= :price_kg
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":price_kg", $price_kg, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set id_category= :id_category
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":id_category", $id_category, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set id_certification= :id_certification
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":id_certification", $id_certification, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set color= :color
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":color", $color, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set smell= :smell
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":smell", $smell, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set taste= :taste
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":taste", $taste, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set expiry_date= now()
+        where id=:id_formaggyo";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set kcal= :kcal
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":kcal", $kcal, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set fats= :fats
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":fats", $fats, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set satured_fats= :satured_fats
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":satured_fats", $satured_fats, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set carbohydrates= :carbohydrates
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":carbohydrates", $carbohydrates, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set sugars= :sugars
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":sugars", $sugars, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set proteins= :proteins
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":proteins", $proteins, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set fibers= :fibers
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":fibers", $fibers, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $query = "UPDATE formaggyo 
+        set salts= :salts
+        where id=:id_formaggyo";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->bindValue(":salts", $salts, PDO::PARAM_STR);
+        $stmt->execute();
+
+
+        $query = "SELECT f.id
+        FROM formaggyo f
+        order by f.id desc 
+        limit 1";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function deleteFormaggyo($id_formaggyo)
+    {
+        $sql=" DELETE FROM formaggyo_ingredient WHERE id_formaggyo =:id_formaggyo ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql=" DELETE FROM formaggyo_warehouse WHERE id_formaggyo =:id_formaggyo ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql=" DELETE FROM supply_formaggyo WHERE id_formaggyo =:id_formaggyo ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql=" DELETE FROM formaggyo_size WHERE id_formaggyo =:id_formaggyo ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql=" DELETE FROM order_formaggyo WHERE id_formaggyo =:id_formaggyo ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql=" DELETE FROM formaggyo WHERE id =:id_formaggyo ";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":id_formaggyo", $id_formaggyo, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
 }
 ?>
