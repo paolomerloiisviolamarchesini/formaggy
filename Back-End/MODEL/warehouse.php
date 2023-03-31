@@ -58,5 +58,122 @@ class Warehouse
 
         return $stmt->fetchall(PDO::FETCH_ASSOC);
     }
+        public function addWarehouse($address)
+    {
+        $sql = "SELECT w.id
+        FROM warehouse w
+        WHERE w.address=:address";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':address', $address, PDO::PARAM_STR);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 0) {
+            $sql = "INSERT into warehouse (address)
+            values(:address)";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(':address', $address, PDO::PARAM_STR);
+            $stmt->execute();
+            return ["message" => "Warehouse creato con successo"];
+        } else {
+            return ["message" => "Warehouse già esistente"];
+        }
+    }
+
+    public function addMultipleFormaggyo($id_formaggyo, $id_warehouse, $weight)
+    {
+        $sql = "SELECT fw.id_formaggyo, fw.id_warehouse
+        FROM formaggyo_warehouse fw
+        WHERE fw.id_formaggyo=:id_formaggyo AND fw.id_warehouse=:id_warehouse";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_formaggyo', $id_formaggyo, PDO::PARAM_STR);
+        $stmt->bindValue(':id_warehouse', $id_warehouse, PDO::PARAM_STR);
+        $stmt->execute();
+        if ($stmt->rowCount() == 0) {
+            $sql = "INSERT into formaggyo_warehouse (id_formaggyo, id_warehouse,weight)
+                values(:id_formaggyo,:id_warehouse,:weight)";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(':id_formaggyo', $id_formaggyo, PDO::PARAM_INT);
+            $stmt->bindValue(':id_warehouse', $id_warehouse, PDO::PARAM_INT);
+            $stmt->bindValue(':weight', $weight, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return $stmt->rowCount();
+        } else
+            return 0;
+    }
+    public function addSingleFormaggyo($id_formaggyo, $id_warehouse, $weight)
+    {
+        $sql = "SELECT fw.id_formaggyo, fw.id_warehouse
+        FROM formaggyo_warehouse fw
+        WHERE fw.id_formaggyo=:id_formaggyo AND fw.id_warehouse=:id_warehouse";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_formaggyo', $id_formaggyo, PDO::PARAM_STR);
+        $stmt->bindValue(':id_warehouse', $id_warehouse, PDO::PARAM_STR);
+        $stmt->execute();
+        if ($stmt->rowCount() == 0) {
+            $sql = "INSERT into formaggyo_warehouse (id_formaggyo, id_warehouse,weight)
+                values(:id_formaggyo,:id_warehouse,:weight)";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(':id_formaggyo', $id_formaggyo, PDO::PARAM_INT);
+            $stmt->bindValue(':id_warehouse', $id_warehouse, PDO::PARAM_INT);
+            $stmt->bindValue(':weight', $weight, PDO::PARAM_INT);
+
+            $stmt->execute();
+            return $stmt->rowCount();
+        } else
+            return 0;
+    }
+    public function addFormaggyotWarehouse($id_formaggyo, $id_warehouse, $weight)
+    {
+        if (is_array($id_formaggyo)) {
+            $cnt = 0;
+            for ($i = 0; $i < count($id_formaggyo); $i++)
+                $cnt += $this->addMultipleFormaggyo($id_formaggyo[$i], $id_warehouse, $weight[$i]);
+            if ($cnt > 0)
+                return ["message" => "formaggyo nella warehouse aggiunto con successo"];
+            else
+                return ["message" => "tutti i formaggi selezionati sono già presenti nella warehouse"];
+        } else {
+            if ($this->addSingleFormaggyo($id_formaggyo, $id_warehouse, $weight) == 1)
+                return ["message" => "formaggyo nella warehouse aggiunto con successo"];
+            else
+                return ["message" => "Formaggyo selezionati sono già presenti nella warehouse"];
+        }
+    }
+
+
+    public function modifyWarehouse($id_warehouse, $newAddressWarehouse)
+    {
+        $sql = "UPDATE warehouse
+        SET address = :newAddressWarehouse
+        WHERE id=:id_warehouse";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':newAddressWarehouse', $newAddressWarehouse, PDO::PARAM_STR);
+        $stmt->bindValue(':id_warehouse', $id_warehouse, PDO::PARAM_INT);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public function deleteWarehouse($id_warehouse)
+    {
+        $sql = "DELETE from formaggyo_warehouse where id_warehouse =:id_warehouse";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_warehouse', $id_warehouse, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $sql = "DELETE from warehouse  where id =:id_warehouse";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_warehouse', $id_warehouse, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
 }
 ?>
