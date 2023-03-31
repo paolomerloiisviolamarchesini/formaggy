@@ -64,5 +64,58 @@ class Supply
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+        public function addSupply($id_account,$id_dairy,$id_formaggyo,$total_price,$status,$weight)
+    {
+        $sql = "SELECT s.id
+        FROM supply s
+        WHERE s.id_account = :id_account AND s.id_dairy=:id_dairy";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(':id_account', $id_account, PDO::PARAM_INT);
+        $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+        $stmt->execute();
+
+        if($stmt->rowCount()==0)
+        {
+            $sql = "INSERT into supply (id_account, id_dairy, date_supply, total_price,status)
+                values (:id_account,:id_dairy,now(),:total_price,:status);";
+    
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(':id_account', $id_account, PDO::PARAM_INT);
+            $stmt->bindValue(':id_dairy', $id_dairy, PDO::PARAM_INT);
+            $stmt->bindValue(':total_price', $total_price, PDO::PARAM_INT);
+            $stmt->bindValue(':status', $status, PDO::PARAM_INT);
+            $stmt->execute();
+
+
+        $sql="INSERT into supply_formaggyo (id_supply,id_formaggyo,weight)
+              values((select s.id
+                from supply s
+                order by s.id desc 
+                limit 1),:id_formaggyo,:weight)";
+
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(':id_formaggyo', $id_formaggyo, PDO::PARAM_INT);
+            $stmt->bindValue(':weight', $weight, PDO::PARAM_INT);
+            
+            $stmt->execute();
+            return ["message" => "Supply creato con successo"];
+        } else 
+        {
+            return ["message" => "Supply già esistente"];
+        }    
+        }
+
+    public function deleteSupply($id_supply)
+    {
+        $sql="UPDATE supply
+            set status = 3
+            where id=:id_supply";
+         $stmt = $this->conn->prepare($sql);
+         $stmt->bindValue(':id_supply', $id_supply, PDO::PARAM_INT);         
+         $stmt->execute();
+         return $stmt->rowCount();
+         
+    } 
 }
 ?>
