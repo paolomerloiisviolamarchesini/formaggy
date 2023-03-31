@@ -28,6 +28,7 @@ for ($i = 0; $i < (count($result)); $i++) {
 
 if (empty($orderArchiveOrders)) {
     http_response_code(404);
+    echo json_encode(["Message" => "La ricerca non ha prodotto risultati"]);
 } else {
     http_response_code(200);
     echo json_encode($orderArchiveOrders);
