@@ -1,0 +1,67 @@
+Tabella “dairy” (CASEIFICIO)
+
+Visualizzare tutti i caseifici. ANDR£A
+Visualizzare uno specifico caseificio ANDR£A.
+Aggiungere un nuovo caseificio FORMENTON.
+Modificare le specifiche di un caseificio FORMENTON.
+Eliminare un caseificio FORMENTON.
+
+Tabella “supply” (FORNITURA)
+
+Visualizzare tutti gli ordini ANDR£A.
+Visualizzare un ordine specifico ANDR£A.
+Visualizzare i prodotti di un ordine ANDR£A.
+Aggiungere un ordine per un caseificio FORMENTON.
+Modificare lo stato di un ordine al caseificio FORMENTON.
+
+Tabella “account” (UTENTE)
+
+Login FORMENTON
+Visualizzare il suo profilo SIMONE.
+Aggiungere un nuovo profilo FORMENTON.
+Modificare la password FORMENTON.
+Modificare tutto del profilo FORMENTON.
+Eliminare il proprio account FORMENTON.
+
+Tabella “order” (ORDINE)
+
+Visualizzare tutti gli ordini ricevuti dall’e-commerce ANDR£A.
+Visualizzare un ordine specifico ANDR£A.
+Visualizzare i prodotti di un ordine ANDR£A.
+Modificare lo stato dell’ordine FORMENTON.
+Modificare lo stato di un ordine ricevuto dall’e-commerce FORMENTON.
+
+Tabella “ingredient” (INGREDIENT)
+
+Visualizzare tutti gli ingredienti SIMONE.
+Visualizzare un ingrediente singolo SIMONE.
+Aggiungere un nuovo ingrediente FORMENTON.
+Modificare il nome o la descrizione di un ingrediente FORMENTON.
+Eliminare un ingrediente FORMENTON.
+
+Tabella “warehouse” (MAGAZZINO)
+
+Visualizzare i magazzini SIMONE.
+Visualizzare un singolo magazzino SIMONE.
+Visualizzare i prodotti del magazzino ANDREA.
+Aggiungere un nuovo magazzino FORMENTON.
+Modificare le specifiche del magazzino FORMENTON.
+Modificare il peso dei prodotti all’interno del magazzino FORMENTON.
+Eliminare il magazzino FORMENTON.
+
+Tabella “formaggyo” (FORMAGGIO)
+
+Visualizzare tutti i formaggi SIMONE.
+Visualizzare il formaggio SIMONE.
+Visualizzare gli ingredienti di un formaggio SIMONE.
+Visualizzare le taglie di un formaggio SIMONE.
+Aggiungere un nuovo formaggio FORMENTON.
+Modificare alcune proprietà del formaggio FORMENTON.
+Eliminare il formaggio FORMENTON.
+
+Tabelle rimaste (CATEGORY, CERTIFICATION, SIZE)
+
+Verranno modificate a mano attraverso lo script SQL, in quanto sono valori predefiniti che verranno cambiati molto raramente.
+Visualizzare tutte le categorie SIMONE.
+Visualizzare tutte le certificazioni SIMONE.
+Visualizzare tutte le taglie SIMONE.
