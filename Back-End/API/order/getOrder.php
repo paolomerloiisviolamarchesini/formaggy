@@ -9,7 +9,7 @@ $parts = explode("/", $_SERVER["REQUEST_URI"]);
 
 if (empty($parts[5])) {
     http_response_code(404);
-    echo json_encode(["message" => "Insert a valid ID"]);
+    echo json_encode(["message" => "Inserisci un ID valido"]);
     exit();
 }
 
@@ -29,8 +29,9 @@ $formaggy = array(
 
 if ($result != false) {
     echo json_encode($formaggy);
+    
 } else {
     http_response_code(400);
-    echo json_encode(["message" => "Product not found"]);
+    echo json_encode(["message" => "Ordine non trovato"]);
 }
 ?>
